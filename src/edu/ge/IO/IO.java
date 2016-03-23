@@ -1,6 +1,13 @@
 package edu.ge.IO;
 
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
+
 import java.io.*;
 
 /**
@@ -41,7 +48,28 @@ public class IO {
         return true;
     }
 
+
     public static void main(String[] args) {
-        System.out.println(readFile(null, "test.txt"));
+        //System.out.println(readFile(".", "list.txt"));
+
+        //readExcelFile();
+
+        LineBag bag = new LineBag();
+        Reader reader = new Reader(bag, "reader", "list.txt");
+        Writer writer = new Writer(bag, "writer", "");
+
+        try {
+            System.out.println("Starting join");
+            reader.getThread().join();
+            System.out.println("reader joined");
+            writer.getThread().join();
+            System.out.println("writer joined");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Program ended");
+
     }
+
 }
