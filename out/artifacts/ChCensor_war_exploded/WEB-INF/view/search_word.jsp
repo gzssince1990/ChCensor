@@ -17,6 +17,26 @@
                     </div>
                     <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
                 </form>
+
+                <div class="progress" style="display: none;">
+                    <div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 0%;" id="search_bar">
+                    </div>
+                </div>
+                <!--div id="progressbar"></div-->
+
+                <table class="table table-striped table-hover" style="display: none;" id="search_word_table">
+                    <thead>
+                    <tr>
+                        <th>baidu_ch</th>
+                        <th>sogou_ch</th>
+                        <th>qihu_ch</th>
+                        <th>baidu_en</th>
+                        <th>sogou_en</th>
+                        <th>qihu_en</th>
+                    </tr>
+                    </thead>
+                    <tbody id="search_word_tbody"></tbody>
+                </table>
             </div>
         </div>
     </div>

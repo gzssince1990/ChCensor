@@ -18,8 +18,8 @@
                         <li><a href="/search/file">File</a></li>
                     </ul>
                 </li>
-                <li><a href="/data">Data</a></li>
-                <li><a href="/display">Display</a></li>
+                <li><a href="/display/data">Data</a></li>
+                <li><a href="/display/visual">Display</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>

@@ -10,7 +10,7 @@ import java.util.Calendar;
  * Created by zhisong on 2/29/16.
  */
 public class Driver {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException{
         /* Check words in google-10000-english.txt
         String orgText = IO.readFile(".","google-10000-english.txt");
 

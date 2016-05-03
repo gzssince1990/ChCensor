@@ -11,10 +11,12 @@ public class Driver {
 
         String[] orgWords = orgText.split("\n");
 
+        Translator translator =new Translator();
+
 
         for (int i = 0; i < orgWords.length; i++) {
             //System.out.println(orgWords[i] + '\t' + Translator.translate(orgWords[i]));
-            IO.writeFile(".", "out.txt", orgWords[i] + '\t' + Translator.translate(orgWords[i]));
+            IO.writeFile(".", "out.txt", orgWords[i] + '\t' + translator.translate(orgWords[i]));
         }
 
     }

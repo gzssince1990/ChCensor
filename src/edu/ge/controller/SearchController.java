@@ -1,10 +1,16 @@
 package edu.ge.controller;
 
 import edu.ge.Model.Person;
+import edu.ge.Model.Word;
+import edu.ge.repository.WordRepository;
+import edu.ge.search.Search;
+import edu.ge.translator.Translator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,15 +27,35 @@ import java.io.PrintWriter;
 @RequestMapping("/search")
 public class SearchController {
 
+    @Autowired
+    private WordRepository wordRepository;
+
+    @Autowired
+    private Search search;
+
+    @Autowired
+    private Translator translator;
+
     @RequestMapping(value = "/word", method = RequestMethod.GET)
     public String searchWordView(){
         return "search_word";
     }
 
     @RequestMapping(value = "/word", method = RequestMethod.POST)
-    public void searchWord(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        PrintWriter out = res.getWriter();
-        out.write("\"word\":\"" + req.getParameter("word") + "\"");
+    public @ResponseBody
+    Word searchWord(Word word) throws IOException, InterruptedException {
+        search.setEngine(Search.Engine.BAIDU);
+        word.setTranslation(translator.translate(word.getWord()));
+        word.setBaidu_ch(search.isBlocked(word.getWord()));
+        word.setBaidu_en(search.isBlocked(word.getTranslation()));
+        search.setEngine(Search.Engine.SOGOU);
+        word.setSogou_ch(search.isBlocked(word.getWord()));
+        word.setSogou_en(search.isBlocked(word.getTranslation()));
+        search.setEngine(Search.Engine.QIHU);
+        word.setQihu_ch(search.isBlocked(word.getWord()));
+        word.setQihu_en(search.isBlocked(word.getTranslation()));
+        wordRepository.addWord(word);
+        return word;
     }
 
     @RequestMapping(value = "/file", method = RequestMethod.GET)
@@ -53,9 +79,8 @@ public class SearchController {
         }
         file.transferTo(uploadPath);
 
-        Person person = new Person();
-        person.setName(req.getParameter("username"));
-        person.setAge(Integer.parseInt(req.getParameter("age")));
+        //Proccess data
+
 
         res.setContentType("application/json");
         PrintWriter out = res.getWriter();

@@ -12,7 +12,7 @@
             </div>
             <div class="panel-body">
                 <form class="form-horizontal" action="/search/file" method="post" role="form" enctype="multipart/form-data" id="search_file_form">
-                    <div class="form-group">
+                    <!--div class="form-group">
                         <label class="control-label col-sm-2" for="username">Username:</label>
                         <div class="col-sm-10">
                             <input type="text" class="form=control" name="username" id="username" required>
@@ -23,7 +23,7 @@
                         <div class="col-sm-10">
                             <input type="text" class="form=control" name="age" id="age" required>
                         </div>
-                    </div>
+                    </div-->
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="file">File:</label>
                         <div class="col-sm-10">

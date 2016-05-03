@@ -7,6 +7,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
+import org.springframework.stereotype.Service;
 
 import java.net.URLEncoder;
 import java.util.Locale;
@@ -15,12 +16,13 @@ import java.util.Scanner;
 /**
  * Created by Zhisong on 2/3/2016.
  */
+@Service
 public class Translator {
 
     private static Locale srcLanguage = Locale.CHINESE;
     private static Locale dstLanguage = Locale.ENGLISH;
 
-    public static String translate(String text){
+    public String translate(String text){
         String ret = null;
 
         try {
@@ -46,7 +48,8 @@ public class Translator {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         String srcStr = in.next();
-        String result = translate(srcStr);
+        Translator translator = new Translator();
+        String result = translator.translate(srcStr);
 
         System.out.println(result);
     }
