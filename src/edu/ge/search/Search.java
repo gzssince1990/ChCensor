@@ -62,8 +62,39 @@ public class Search{
     private final Pattern BlockedPattern_Baidu = Pattern.compile(BLOCKED_STR_BAIDU);
     private final String BLOCKED_KEYWORD = "根据相关法律法规和政策，部分搜索结果未予显示。";
 
-    public Search(Engine engine){
+    public Search(Engine engine) {
         this.engine = engine;
+        try {
+            sslContext = SSLContext.getInstance("TLS");
+            X509TrustManager trustManager = new X509TrustManager() {
+                public void checkClientTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+
+                }
+
+                public void checkServerTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+
+                }
+
+                public X509Certificate[] getAcceptedIssuers() {
+                    return new X509Certificate[0];
+                }
+            };
+            sslContext.init(new KeyManager[0], new TrustManager[]{trustManager}, new SecureRandom());
+            //SSLContext.setDefault(sslContext);
+
+            sslConnectionSocketFactory = new SSLConnectionSocketFactory(
+                    sslContext,
+                    new String[]{"TLSv1"},
+                    null,
+                    SSLConnectionSocketFactory.getDefaultHostnameVerifier()
+            );
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (KeyManagementException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     public Search() throws NoSuchAlgorithmException, KeyManagementException {

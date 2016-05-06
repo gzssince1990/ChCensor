@@ -12,18 +12,6 @@
             </div>
             <div class="panel-body">
                 <form class="form-horizontal" action="/search/file" method="post" role="form" enctype="multipart/form-data" id="search_file_form">
-                    <!--div class="form-group">
-                        <label class="control-label col-sm-2" for="username">Username:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form=control" name="username" id="username" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="age">Age:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form=control" name="age" id="age" required>
-                        </div>
-                    </div-->
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="file">File:</label>
                         <div class="col-sm-10">
@@ -36,6 +24,16 @@
                         </div>
                     </div>
                 </form>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="alert alert-danger fade in" id="search_file_error" style="display: none;"></div>
+                    </div>
+                </div>
+                <div class="row">
+                <div class="col-sm-12">
+                    <div class="alert alert-success fade in" id="search_file_success" style="display: none;"></div>
+                </div>
+            </div>
             </div>
         </div>
     </div>

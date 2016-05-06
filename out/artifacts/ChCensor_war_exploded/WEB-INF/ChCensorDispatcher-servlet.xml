@@ -20,6 +20,7 @@
     <context:component-scan base-package="edu.ge.repository" />
     <context:component-scan base-package="edu.ge.search" />
     <context:component-scan base-package="edu.ge.translator" />
+    <context:component-scan base-package="edu.ge.IO" />
 
     <bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
         <property name="host" value="localhost" />

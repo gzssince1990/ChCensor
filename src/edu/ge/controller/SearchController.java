@@ -1,11 +1,13 @@
 package edu.ge.controller;
 
+import edu.ge.IO.IO;
 import edu.ge.Model.Person;
 import edu.ge.Model.Word;
 import edu.ge.repository.WordRepository;
 import edu.ge.search.Search;
 import edu.ge.translator.Translator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +26,7 @@ import java.io.PrintWriter;
  * Created by zhisong on 4/28/16.
  */
 @Controller
+@EnableAsync
 @RequestMapping("/search")
 public class SearchController {
 
@@ -35,6 +38,9 @@ public class SearchController {
 
     @Autowired
     private Translator translator;
+
+    @Autowired
+    private IO io;
 
     @RequestMapping(value = "/word", method = RequestMethod.GET)
     public String searchWordView(){
@@ -80,11 +86,13 @@ public class SearchController {
         file.transferTo(uploadPath);
 
         //Proccess data
+        io.addWordsFromFile(uploadPath.getAbsolutePath());
 
 
         res.setContentType("application/json");
         PrintWriter out = res.getWriter();
-        out.write("{\"name\": \"ge\"}");
+        out.write("{\"statusCode\": \"200\",\"uploadPath\":\""+ uploadPath +"\"}");
+        System.out.println("Leaving search file controller");
     }
 
 }

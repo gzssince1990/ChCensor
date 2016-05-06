@@ -20,11 +20,20 @@ $(document).ready(function() {
         $(this).ajaxSubmit({
             error: function (err) {
                 console.log(err.message);
+                $('#search_file_success').hide();
+                $('#search_file_error').show().empty().append(
+                    '<strong>Error: </strong>' + err.message
+                );
             },
             success: function (data) {
                 debugger;
                 console.log("--------");
                 console.log(data);
+                $('#search_file_error').hide();
+                $('#search_file_success').show().empty().append(
+                    '<strong>Success: </strong>' + data.uploadPath + '<br>'
+                    + 'Your upload data is being proceesed.'
+                );
             }
         });
         event.preventDefault();

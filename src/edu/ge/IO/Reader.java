@@ -1,5 +1,7 @@
 package edu.ge.IO;
 
+import org.springframework.stereotype.Service;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -7,12 +9,22 @@ import java.io.FileReader;
 /**
  * Created by zhisong on 3/22/2016.
  */
+@Service
 public class Reader implements Runnable {
     private LineBag bag;
     private Thread thread;
     private String fName;
 
     public Reader(LineBag bag, String tName, String fName){
+        this.bag = bag;
+        this.fName = fName;
+        thread = new Thread(this, tName);
+        thread.start();
+    }
+
+    public Reader(){}
+
+    public void init(LineBag bag, String tName, String fName){
         this.bag = bag;
         this.fName = fName;
         thread = new Thread(this, tName);

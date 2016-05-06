@@ -7,13 +7,24 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 
 /**
  * Created by Zhisong on 2/4/2016.
  */
+@Service
 public class IO {
+
+    @Autowired
+    private Reader reader;
+
+    @Autowired
+    private Writer writer;
+
     public static String readFile(String dirStr, String filename){
         String result= new String();
         File dir = new File(dirStr);
@@ -48,15 +59,14 @@ public class IO {
         return true;
     }
 
-
-    public static void main(String[] args) {
-        //System.out.println(readFile(".", "list.txt"));
-
-        //readExcelFile();
-
+    @Async
+    public void addWordsFromFile(String readPath){
+        System.out.println("Entering add words from file thread");
         LineBag bag = new LineBag();
-        Reader reader = new Reader(bag, "reader", "list.txt");
-        Writer writer = new Writer(bag, "writer", "");
+        reader.init(bag, "reader", readPath);
+        writer.init(bag, "writer", "");
+        //Reader reader = new Reader(bag, "reader", readPath);
+        //Writer writer = new Writer(bag, "writer", "");
 
         try {
             System.out.println("Starting join");
@@ -68,8 +78,16 @@ public class IO {
             e.printStackTrace();
         }
 
-        System.out.println("Program ended");
+        System.out.println("Leaving add words from file thread");
+    }
 
+
+    public static void main(String[] args) {
+        //System.out.println(readFile(".", "list.txt"));
+
+        //readExcelFile();
+
+        //addWordsFromFile("list.txt");
     }
 
 }
